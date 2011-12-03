@@ -1,0 +1,1 @@
+cat `find ./ -name "*.hs" | sed -e "s/.*\/tmp\/.*//g" | sed -e "s/.*\/web\/.*//g" ` |wc -l
