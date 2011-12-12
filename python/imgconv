@@ -1,0 +1,16 @@
+#!/usr/bin/env python2
+
+# General purpose image converter.
+# Automatic recognition~~
+# Handy utility for physics experiments
+
+# Example(converting all bmp file to jpg):
+# ls|grep BMP|parallel ./imgconv {} {.}.jpg
+
+import sys
+from SimpleCV import *
+f1=sys.argv[1]
+f2=sys.argv[2]
+
+img=Image(f1);
+img.save(f2);
