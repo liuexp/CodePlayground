@@ -3,6 +3,8 @@ all:
 	ghc  -XExistentialQuantification -o main main.hs
 clean:
 	rm -rf *.hi *.o
+	find ./ -name "*.hi" |xargs rm
+	find ./ -name "*.o" |xargs rm
 
 tarball: clean
 	rm -rf Schemer.tar.gz
