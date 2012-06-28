@@ -9,8 +9,4 @@
 
 import sys
 from SimpleCV import *
-f1=sys.argv[1]
-f2=sys.argv[2]
-
-img=Image(f1);
-img.save(f2);
+Image(sys.argv[1]).save(sys.argv[2]);

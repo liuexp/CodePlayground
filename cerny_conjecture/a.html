@@ -1,0 +1,163 @@
+<html>
+<head>
+	<style type="text/css">
+		.a{
+			position:absolute;
+			left:100px;
+			top:120px;
+			border: 2px solid #B3CE28;
+		}
+
+		.b{
+			position:absolute;
+			left:200px;
+			top:120px;
+			border: 2px solid #B3CE28;
+		}
+
+		.g{
+			position:absolute;
+			left:80px;
+			top:180px;
+			border: 2px solid #B3CE28;
+		}
+
+		.c{
+			position:absolute;
+			left:220px;
+			top:180px;
+			border: 2px solid #B3CE28;
+		}
+
+		.f{
+			position:absolute;
+			left:100px;
+			top:250px;
+			border: 2px solid #B3CE28;
+		}
+
+		.d{
+			position:absolute;
+			left:200px;
+			top:250px;
+			border: 2px solid #B3CE28;
+		}
+
+		.e{
+			position:absolute;
+			left:150px;
+			top:300px;
+			border: 2px solid #B3CE28;
+		}
+	</style>
+
+    <script type="text/javascript" src="jquery.js"></script>
+	<script language="javascript">
+		var seed=new Array(1,0,6,5,6,3,2);
+		//var seed=new Array(1,0,6,5,2,3,2);
+		//var seed=new Array(0,1,2,3,5,5,6);
+		var perm= new Array(1,2,3,4,5,6,0);
+		var cur=new Array(0,1,2,3,4,5,6);
+		var last=cur;
+		var tot=0;
+		var moves="";
+		function format(x){
+			if(x<0)return " ";
+			else return x;
+		}
+		function f0(){
+			var next=new Array(-1,-1,-1,-1,-1,-1,-1);
+			var itr=0;
+			for(itr=0;itr<next.length;itr++){
+				next[perm[itr]]=next[perm[itr]]<0?cur[itr]:next[perm[itr]];
+			}
+			last=cur;
+			cur=next;
+			$("#a").text(format(next[0]));
+			$("#b").text(format(next[1]));
+			$("#c").text(format(next[2]));
+			$("#d").text(format(next[3]));
+			$("#e").text(format(next[4]));
+			$("#f").text(format(next[5]));
+			$("#g").text(format(next[6]));
+			tot=tot+1;
+			$("#tot").text(tot);
+			moves=moves+" 0";
+			$("#moves").text(moves);
+		}
+		function f1(){
+			var next=new Array(-1,-1,-1,-1,-1,-1,-1);
+			var itr=0;
+			for(itr=0;itr<next.length;itr++){
+				next[seed[itr]]=next[seed[itr]]<0?cur[itr]:next[seed[itr]];
+			}
+			last=cur;
+			cur=next;
+			$("#a").text(format(next[0]));
+			$("#b").text(format(next[1]));
+			$("#c").text(format(next[2]));
+			$("#d").text(format(next[3]));
+			$("#e").text(format(next[4]));
+			$("#f").text(format(next[5]));
+			$("#g").text(format(next[6]));
+			tot=tot+1;
+			$("#tot").text(tot);
+			moves=moves+" 1";
+			$("#moves").text(moves);
+
+		}
+		function undo(){
+			next=last;
+			last=cur;
+			cur=next;
+			$("#a").text(format(next[0]));
+			$("#b").text(format(next[1]));
+			$("#c").text(format(next[2]));
+			$("#d").text(format(next[3]));
+			$("#e").text(format(next[4]));
+			$("#f").text(format(next[5]));
+			$("#g").text(format(next[6]));
+			$("#tot").text(tot-1);
+		}
+		function setRule0(){
+			seed=new Array(0,1,2,3,5,5,6);
+		}
+		function setRule1(){
+			seed=new Array(1,0,6,5,2,3,2);
+		}
+		$(function(){
+			$("#btn_a").click(function(){
+				f0();
+			});
+			$("#btn_b").click(function(){
+				f1();
+			});
+			$("#btn_c").click(function(){
+				undo();
+			});
+			$("#btn_d").click(function(){
+				setRule0();
+			});
+			$("#btn_e").click(function(){
+				setRule1();
+			});
+		});
+
+	</script>
+</head>
+<div id="a" class="a">0</div>
+<div id="b" class="b">1</div>
+<div id="c" class="c">2</div>
+<div id="d" class="d">3</div>
+<div id="e" class="e">4</div>
+<div id="f" class="f">5</div>
+<div id="g" class="g">6</div>
+
+<button id="btn_a" >Apply f0</button>
+<button id="btn_b" >Apply f1</button>
+<button id="btn_c" >Undo</button>
+<button id="btn_d" >Set Rule 0</button>
+<button id="btn_e" >Set Rule 1</button>(default rule:1) <br />
+total:<div id="tot" class="tot">0</div>
+moves:<div id="moves" class="moves"></div>
+</html>
